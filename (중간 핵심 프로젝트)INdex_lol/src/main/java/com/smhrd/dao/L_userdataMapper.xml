@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.dao.L_userdataDAO">
+
+	<select id="fdlist" 
+		resultType="com.smhrd.entity.L_userdata">
+		select * from l_userdata
+		where
+		u_id= #{u_id}
+		ORDER BY u_idx
+		DESC
+	</select>
+
+	<select id="getNextIdx" resultType="int">
+		SELECT T_USERDATA_SEQ.NEXTVAL
+		FROM dual
+	</select>
+
+	<!-- <insert id="insertPlayData" parameterType="map"> INSERT INTO l_userdata 
+		( u_id, u_rank, u_gold, u_level, u_kda, u_damage, u_playtime, u_sigthscore, 
+		u_gamecnt, u_winlose, u_champ, u_matchcd ) VALUES <foreach collection="userDataList" 
+		item="userData" separator=","> ( #{u_id}, #{userData.u_rank}, #{userData.u_gold}, 
+		#{userData.u_level}, #{userData.u_kda}, #{userData.u_damage}, #{userData.u_playtime}, 
+		#{userData.u_sigthscore}, #{userData.u_gamecnt}, #{userData.u_winlose}, #{userData.u_champ}, 
+		#{userData.u_matchcd} ) </foreach> </insert> -->
+
+	<insert id="insertPlayData"
+		parameterType="com.smhrd.entity.L_userdata">
+		INSERT INTO l_userdata
+		VALUES
+		(
+		#{u_idx},
+		#{u_id},
+		#{u_gold},
+		#{u_level},
+		#{u_damage},
+		#{u_playtime},
+		#{u_wardskill},
+		#{u_gamecnt},
+		#{u_winlose},
+		#{u_champ},
+		#{u_matchcd},
+		#{u_cs},
+		#{u_teamposition},
+		#{u_kill},
+		#{u_death},
+		#{u_assist},
+		#{u_minionkill},
+		#{u_wardsplaced}
+		)
+	</insert>
+
+	<select id="matchCdCheck"
+		resultType="com.smhrd.entity.L_userdata">
+		select * from l_userdata
+		where u_matchcd = #{u_matchcd}
+	</select>
+
+
+	<select id="userdataDesc"
+		resultType="com.smhrd.entity.L_userdata"
+		parameterType="com.smhrd.entity.L_userdata">
+		select *
+		from l_userdata
+		where u_id =#{u_id}
+		ORDER BY u_idx
+		DESC
+	</select>
+
+	<select id="userdataDescOne"
+		resultType="com.smhrd.entity.L_userdata"
+		parameterType="com.smhrd.entity.L_userdata">
+		SELECT * FROM l_userdata
+		WHERE u_id = #{u_id}
+		AND ROWNUM =
+		1
+		ORDER BY u_idx DESC
+
+	</select>
+
+
+	<select id="champDesc" resultType="com.smhrd.entity.L_userdata"
+		parameterType="com.smhrd.entity.L_userdata">
+		SELECT u_champ, u_id, count(*) as champcnt
+		FROM
+		l_userdata
+		GROUP BY u_champ, u_id
+		having u_id=#{u_id}
+		order by champcnt
+		desc
+	</select>
+
+	<select id="winCnt"></select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.dao.L_ghostdataDAO">
+
+	<select id="gdview" resultType="com.smhrd.entity.L_ghostdata">
+		select * from l_ghostdata
+		where g_rank = #{g_rank}
+	</select>
+	
+	
+	<select id="ghostdataOne"
+		resultType="com.smhrd.entity.L_ghostdata"
+		parameterType="com.smhrd.entity.L_ghostdata">
+		SELECT * FROM L_ghostdata
+		WHERE g_rank = #{r_rank}
+		
+
+	</select>
+
+</mapper>
